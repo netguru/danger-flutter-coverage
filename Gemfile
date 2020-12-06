@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in ${PLUGIN_NAME}.gemspec
+# Specify your gem's dependencies in danger-flutter-coverage.gemspec
 gemspec
