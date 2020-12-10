@@ -1,1 +1,1 @@
-require "danger-flutter-coverage/plugin"
+require "flutter_coverage/plugin"
