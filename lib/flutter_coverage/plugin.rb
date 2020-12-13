@@ -28,19 +28,19 @@ module Danger
       end
       
       def code_coverage
-        LF = 0
-        LH = 0
+        uncovered_lines = 0
+        covered_lines = 0
 
         input = File.open(coverage_report_path).read
 
         input.each_line do |line|
             if line.start_with?('LF')
-                LF += line.sub('LF:', '').to_f
+                uncovered_lines += line.sub('LF:', '').to_f
             elsif line.start_with?('LH')
-                LH += line.sub('LH:', '').to_f
+                covered_lines += line.sub('LH:', '').to_f
             end
         end
-        LH / LF
+        covered_lines / uncovered_lines
       end
       
     def code_coverage_message
