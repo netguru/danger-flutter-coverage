@@ -4,7 +4,7 @@ module Danger
       attr_accessor :lint_report_path
       attr_accessor :coverage_report_path
       
-      def parse_lint
+      def parsed_lint
           input = File.open(lint_report_path)
           filtered_input = input.each_line.map(&:strip).reject(&:empty?)
 
@@ -16,15 +16,35 @@ module Danger
       end
 
       def warnings
-          filtered_input
+          parsed_lint
               .select { |line| line.start_with? "info" }
               .length
       end
 
       def errors
-          filtered_input
+          parsed_lint
               .select { |line| line.start_with? "error" }
               .length
       end
+      
+      def code_coverage
+        LF = 0
+        LH = 0
+
+        input = File.open(coverage_report_path).read
+
+        input.each_line do |line|
+            if line.start_with?('LF')
+                LF += line.sub('LF:', '').to_f
+            elsif line.start_with?('LH')
+                LH += line.sub('LH:', '').to_f
+            end
+        end
+        LH / LF
+      end
+      
+    def code_coverage_message
+        markdown("## Code coverage: #{code_coverage.round(2)}% ✅")
+    end
   end
 end
