@@ -16,15 +16,21 @@ module Danger
       end
 
       def warnings
-          parsed_lint
-              .select { |line| line.start_with? "info" }
-              .length
+          if parsed_lint.length > 0
+              parsed_lint
+                  .select { |line| line.start_with? "info" }
+                  .length
+          else
+              0
       end
 
       def errors
-          parsed_lint
-              .select { |line| line.start_with? "error" }
-              .length
+          if parsed_lint.length > 0
+              parsed_lint
+                  .select { |line| line.start_with? "error" }
+                  .length
+          else
+              0
       end
       
       def code_coverage
