@@ -22,6 +22,7 @@ module Danger
               parsed_lint
                   .select { |line| line.start_with? "info" }
                   .length
+          end
       end
 
       def errors
@@ -31,6 +32,7 @@ module Danger
               parsed_lint
                   .select { |line| line.start_with? "error" }
                   .length
+          end
       end
       
       def code_coverage
