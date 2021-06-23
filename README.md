@@ -1,15 +1,23 @@
-# ${PLUGIN_NAME}
+# danger-flutter-coverage
 
-A description of ${PLUGIN_NAME}.
+Plugin that allows to count project code coverage
 
 ## Installation
 
-    $ gem install ${PLUGIN_NAME}
+    $ gem 'danger-flutter-coverage', git: 'https://github.com/netguru/danger-flutter-coverage'
 
 ## Usage
 
-    Methods and attributes from this plugin are available in
-    your `Dangerfile` under the `${PLUGIN_FILE}` namespace.
+For code coverage:
+```
+require 'flutter_coverage/plugin'
+
+# Show path to code coverage file generated with `flutter test --coverage`
+flutter_coverage.coverage_report_path = "./coverage/lcov.info"
+
+# Print the code coverage message
+flutter_coverage.code_coverage_message
+```
 
 ## Development
 
