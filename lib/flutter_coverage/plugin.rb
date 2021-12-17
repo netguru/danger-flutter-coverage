@@ -48,7 +48,7 @@ module Danger
                 covered_lines += line.sub('LH:', '').to_f
             end
         end
-        covered_lines / uncovered_lines
+        covered_lines / uncovered_lines * 100
       end
       
     def code_coverage_message
