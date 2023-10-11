@@ -64,15 +64,15 @@ module Danger
           elsif line.start_with?('LF')
             lines_covered << line.sub('LF:', '').to_f
           elsif line.start_with?('LH', '')
-            uncovered_lines << line.sub('LH', '').to_f
+            uncovered_lines << line.sub('LH:', '').to_f
           end
         end
-        table = "### Code coverage context: 👁️"
+        table = "### Code coverage context: 👁️\n"
         table << "| File | Covered |\n"
-        table << "| ---- | ---- |\n"
+        table << "| ---- | ------- |\n"
         
-        rows = files.each_with_index do | element, index |
-          "| #{element} | #{((lines_covered[index] / uncovered_lines[index]) * 100).round(2)}% |\n"
+        files.each_with_index do | element, index |
+          table << "| #{element} | #{((lines_covered[index] / uncovered_lines[index]) * 100).round(2)}% |\n"
         end
         
         return rows.reduce(table) { |acc, row| acc << row }
