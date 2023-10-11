@@ -52,7 +52,7 @@ module Danger
       end
 
       def tests_context
-        File.open(coverage_report_path).read
+        File.open(coverage_report_path).sysread(20)
       end
       
     def code_coverage_message
@@ -60,7 +60,7 @@ module Danger
     end
 
     def tests_context_message
-       markdown("## Code coverage context: #{tests_context} ✅")
+       markdown("## Code coverage context: 👁️ #{test_context}")
     end
   end
 end
