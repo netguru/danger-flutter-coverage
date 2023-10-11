@@ -74,7 +74,7 @@ module Danger
           end
         end
 
-        return "#{covered_lines.length} | #{unnecessary.length}"
+        return "files: #{files.length} | covered_lines: #{covered_lines.length} | uncovered_lines: #{uncovered_lines.length} | unnecessary: #{unnecessary.length}"
         # table = "### Code coverage context: 👁️\n"
         # table << "| File | Covered |\n"
         # table << "| ---- | ------- |\n"
