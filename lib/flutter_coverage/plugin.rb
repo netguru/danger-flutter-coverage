@@ -56,7 +56,7 @@ module Danger
         lines_covered = []
         uncovered_lines = []
       
-        input = File.open(coverage_report_path)
+        input = File.open(coverage_report_path).read
 
         input.each_line do |line|
           if line.start_with?('SF')
@@ -71,12 +71,10 @@ module Danger
         table << "| File | Covered |\n"
         table << "| ---- | ------- |\n"
         
-        rows = files.map.with_index do | element, index |
+        return files.each_with_index do | element, index |
           coverage = lines_covered[index] / uncovered_lines[index] * 100
-          return "| #{element} | #{coverage.round(2)}% |\n"
+          table << "| #{element} | #{coverage.round(2)}% |\n"
         end
-        
-        return rows.reduce(table) { |acc, row| acc << row }
       end
       
     def code_coverage_message
