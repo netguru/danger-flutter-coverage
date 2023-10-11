@@ -52,9 +52,26 @@ module Danger
       end
 
       def tests_context
-          input = File.open(coverage_report_path)
-          filtered_input = input.scan('/\s*lines\*:\s*([d\.]+%)/')
-          filtered_input
+        files = []
+        lines_covered = []
+        uncovered_lines = []
+      
+        input = File.open(coverage_report_path)
+
+        input.each_line do |line|
+          if line.start_with?('SF')
+            files << line.sub('SF:', '')
+          elsif line.start_with?('LF')
+            lines_covered << line.sub('LF:', '').to_f
+          elsif line.start_with?('LH', '')
+            uncovered_lines << line.sub('LH', '').to_f
+          end
+        end
+        table = "| File | Covered | Uncovered |\n"
+        table << "| ---- | ---- | ---- |\n"
+        return files.each_with_index do | element, index |
+          table << "| #{element} | #{lines_covered[index]}% | #{uncovered_lines[index]}}"
+        end
       end
       
     def code_coverage_message
