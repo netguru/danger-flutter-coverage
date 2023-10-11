@@ -67,11 +67,15 @@ module Danger
             uncovered_lines << line.sub('LH', '').to_f
           end
         end
-        table = "| File | Covered | Uncovered |\n"
-        table << "| ---- | ---- | ---- |\n"
-        return files.each_with_index do | element, index |
-          table << "| #{element} | #{lines_covered[index]}% | #{uncovered_lines[index]}}"
+        table = "### Code coverage context: 👁️"
+        table << "| File | Covered |\n"
+        table << "| ---- | ---- |\n"
+        
+        rows = files.each_with_index do | element, index |
+          "| #{element} | #{((lines_covered[index] / uncovered_lines[index]) * 100).round(2)}% |\n"
         end
+        
+        return rows.reduce(table) { |acc, row| acc << row }
       end
       
     def code_coverage_message
@@ -79,7 +83,6 @@ module Danger
     end
 
     def tests_context_message
-        markdown("### Code coverage context: 👁️")
         markdown(tests_context)
     end
   end
