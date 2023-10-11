@@ -57,8 +57,8 @@ module Danger
         uncovered_lines = []
       
         input = File.open(coverage_report_path).read
-        tests = input.split("\n")
-        return "#{tests.length}"
+        input_lines = input.split("\n")
+        return "#{input_lines.length}"
 
         # input = File.open(coverage_report_path).read
         # tests = input.split("\n")
@@ -81,8 +81,6 @@ module Danger
         # files.each_with_index do | element, index |
         #    table << "| #{element} | #{(covered_lines[index].to_f / uncovered_lines[index].to_f * 100).round(2)}% |\n"
         # end
-      end
-
 
         # input.each_line do |line|
         #   if line.start_with?('SF')
