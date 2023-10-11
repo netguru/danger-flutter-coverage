@@ -70,13 +70,15 @@ module Danger
             end
           end
         end
-        table = "### Code coverage context: 👁️\n"
-        table << "| File | Covered |\n"
-        table << "| ---- | ------- |\n"
+
+        return "${covered_lines}"
+        # table = "### Code coverage context: 👁️\n"
+        # table << "| File | Covered |\n"
+        # table << "| ---- | ------- |\n"
         
-        files.each_with_index do | element, index |
-           table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
-        end
+        # files.each_with_index do | element, index |
+        #    table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
+        # end
       end
       
     def code_coverage_message
