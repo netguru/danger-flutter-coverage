@@ -53,7 +53,7 @@ module Danger
 
       def tests_context
         files = []
-        lines_covered = []
+        covered_lines = []
         uncovered_lines = []
       
         input = File.open(coverage_report_path).read
@@ -62,20 +62,20 @@ module Danger
           if line.start_with?('SF')
             files << line.sub('SF:', '')
           elsif line.start_with?('LF')
-            lines_covered << line.sub('LF:', '').to_f
+            uncovered_lines << line.sub('LF:', '').to_f
           elsif line.start_with?('LH', '')
-            uncovered_lines << line.sub('LH:', '').to_f
+            covered_lines << line.sub('LH:', '').to_f
           end
         end
         table = "### Code coverage context: 👁️\n"
         table << "| File | Covered |\n"
         table << "| ---- | ------- |\n"
         
-        rows = files.each_with_index.map do | element, index |
-           return "| #{element} | #{(lines_covered[index] / uncovered_lines[index] * 100).round(2)}% |\n"
+        files.each_with_index do | element, index |
+           table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
         end
 
-        return rows.reduce(table) { |acc, row| acc << row }
+        return table
       end
       
     def code_coverage_message
