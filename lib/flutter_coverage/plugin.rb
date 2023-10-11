@@ -53,7 +53,7 @@ module Danger
 
       def tests_context
           input = File.open(coverage_report_path)
-          filtered_input = input.each_line.map(&:strip).reject(&:empty?)
+          filtered_input = input.scan('/\s*lines\*:\s*([d\.]+%)/')
           filtered_input
       end
       
