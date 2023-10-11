@@ -58,6 +58,8 @@ module Danger
       
         input = File.open(coverage_report_path).read
         tests = input.split("\n")
+        return "#{test.length}"
+
 
         # input.each_line do |line|
         #   if line.start_with?('SF')
@@ -68,6 +70,8 @@ module Danger
         #     covered_lines << line.sub('LH:', '').to_f
         #   end
         # end
+
+        # return "#{files.length} | #{covered_lines.length} | #{uncovered_lines.length}"
         # table = "### Code coverage context: 👁️\n"
         # table << "| File | Covered |\n"
         # table << "| ---- | ------- |\n"
