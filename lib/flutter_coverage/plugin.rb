@@ -58,24 +58,24 @@ module Danger
       
         input = File.open(coverage_report_path).read
 
-        input.each_line do |line|
-          if line.start_with?('SF')
-            files << line.sub('SF:', '')
-          elsif line.start_with?('LF')
-            uncovered_lines << line.sub('LF:', '').to_f
-          elsif line.start_with?('LH', '')
-            covered_lines << line.sub('LH:', '').to_f
-          end
-        end
-        table = "### Code coverage context: 👁️\n"
-        table << "| File | Covered |\n"
-        table << "| ---- | ------- |\n"
+        # input.each_line do |line|
+        #   if line.start_with?('SF')
+        #     files << line.sub('SF:', '')
+        #   elsif line.start_with?('LF')
+        #     uncovered_lines << line.sub('LF:', '').to_f
+        #   elsif line.start_with?('LH', '')
+        #     covered_lines << line.sub('LH:', '').to_f
+        #   end
+        # end
+        # table = "### Code coverage context: 👁️\n"
+        # table << "| File | Covered |\n"
+        # table << "| ---- | ------- |\n"
         
-        files.each_with_index do | element, index |
-           table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
-        end
+        # covered_lines.each_with_index do | element, index |
+        #    table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
+        # end
 
-        return table
+        return input
       end
       
     def code_coverage_message
