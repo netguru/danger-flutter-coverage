@@ -63,10 +63,10 @@ module Danger
           if line.start_with?('SF')
             files << line.sub('SF:', '')
           elsif line.start_with?('LF')
-            uncovered_lines << line.sub('LF:', '')
+            uncovered_lines << line.sub('LF:', '').to_f
           else
             if line.start_with?('LH', '')
-              covered_lines << line.sub('LH:', '')
+              covered_lines << line.sub('LH:', '').to_f
             end
           end
         end
@@ -75,7 +75,7 @@ module Danger
         table << "| ---- | ------- |\n"
         
         files.each_with_index do | element, index |
-           table << "| #{element} | #{(covered_lines[index].to_f / uncovered_lines[index].to_f * 100).round(2)}% |\n"
+           table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
         end
       end
       
