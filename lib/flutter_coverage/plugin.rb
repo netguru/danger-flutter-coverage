@@ -57,9 +57,7 @@ module Danger
         uncovered_lines = []
       
         input = File.open(coverage_report_path).read
-        tests = input.split("end_of_record")
-
-        return "#{tests.length}"
+        tests = input.split("\n")
 
         # input.each_line do |line|
         #   if line.start_with?('SF')
