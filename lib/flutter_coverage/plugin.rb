@@ -61,12 +61,12 @@ module Danger
         input_lines = input.split("\n")
 
         input_lines.each do |line|
-          if line.start_with?('SF')
+          if line.start_with?('SF:')
             files << line.sub('SF:', '')
           else
-            if line.start_with?('LF')
+            if line.start_with?('LF:')
               uncovered_lines << line.sub('LF:', '').to_f
-            elsif line.start_with?('LH', '')
+            elsif line.start_with?('LH:', '')
               covered_lines << line.sub('LH:', '').to_f
             else
               unnecessary << line
@@ -74,7 +74,17 @@ module Danger
           end
         end
 
-        return "files: #{files.length} | covered_lines: #{covered_lines.length} | uncovered_lines: #{uncovered_lines.length} | unnecessary: #{unnecessary.length}"
+        asdf = input_lines.select do |line|
+          line.start_with?('LH:')
+        end
+
+        fghj = input_lines.select do |line|
+          line.start_with?('LF:')
+        end
+
+        return "#{asdf}\n#{asdf.length}\n#{fghj}\n#{fghj.length}"
+
+        # return "#{input_lines}\n files: #{files.length} | covered_lines: #{covered_lines.length} | uncovered_lines: #{uncovered_lines.length} | unnecessary: #{unnecessary.length}"
         # table = "### Code coverage context: 👁️\n"
         # table << "| File | Covered |\n"
         # table << "| ---- | ------- |\n"
