@@ -52,7 +52,9 @@ module Danger
       end
 
       def tests_context
-        File.open(coverage_report_path).sysread(20)
+          input = File.open(coverage_report_path)
+          filtered_input = input.each_line.map(&:strip).reject(&:empty?)
+          filtered_input
       end
       
     def code_coverage_message
