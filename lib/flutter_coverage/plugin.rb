@@ -56,12 +56,12 @@ module Danger
       end
       
     def code_coverage_message
-        markdown("## Code coverage: #{code_coverage.round(2)}% ✅")
+        markdown("### Code coverage: #{code_coverage.round(2)}% ✅")
     end
 
     def tests_context_message
-        markdown("## Code coverage context: 👁️")
-        puts tests_context
+        markdown("### Code coverage context: 👁️")
+        markdown(tests_context)
     end
   end
 end
