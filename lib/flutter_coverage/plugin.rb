@@ -71,7 +71,7 @@ module Danger
         table << "| File | Covered |\n"
         table << "| ---- | ------- |\n"
         
-        files.each_with_index do | element, index |
+        rows = files.each_with_index do | element, index |
           table << "| #{element} | #{((lines_covered[index] / uncovered_lines[index]) * 100).round(2)}% |\n"
         end
         
