@@ -49,6 +49,7 @@ module Danger
                 covered_lines += line.sub('LH:', '').to_f
             end
         end
+        
         coverage = covered_lines / uncovered_lines * 100
         
         if coverage < 70
