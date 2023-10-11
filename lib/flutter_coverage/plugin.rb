@@ -71,7 +71,7 @@ module Danger
           end
         end
 
-        return "${covered_lines}"
+        return "#{covered_lines}"
         # table = "### Code coverage context: 👁️\n"
         # table << "| File | Covered |\n"
         # table << "| ---- | ------- |\n"
