@@ -55,6 +55,7 @@ module Danger
         files = []
         covered_lines = []
         uncovered_lines = []
+        unnecessary = []
       
         input = File.open(coverage_report_path).read
         input_lines = input.split("\n")
@@ -67,11 +68,13 @@ module Danger
               uncovered_lines << line.sub('LF:', '').to_f
             elsif line.start_with?('LH', '')
               covered_lines << line.sub('LH:', '').to_f
+            else
+              unnecessary << line
             end
           end
         end
 
-        return "#{covered_lines}"
+        return "#{covered_lines.length} | #{unnecessary.length}"
         # table = "### Code coverage context: 👁️\n"
         # table << "| File | Covered |\n"
         # table << "| ---- | ------- |\n"
