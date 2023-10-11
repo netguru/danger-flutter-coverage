@@ -70,11 +70,10 @@ module Danger
         table = "### Code coverage context: 👁️\n"
         table << "| File | Covered |\n"
         table << "| ---- | ------- |\n"
-
-        coverage = lines_covered[index] / uncovered_lines[index] * 100
         
-        rows = files.each_with_index do | element, index |
-          "| #{element} | #{coverage.round(2)}% |\n"
+        rows = files.map.with_index do | element, index |
+          coverage = lines_covered[index] / uncovered_lines[index] * 100
+          return "| #{element} | #{coverage.round(2)}% |\n"
         end
         
         return rows.reduce(table) { |acc, row| acc << row }
