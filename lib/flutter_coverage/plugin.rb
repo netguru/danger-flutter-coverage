@@ -55,7 +55,6 @@ module Danger
         files = []
         covered_lines = []
         uncovered_lines = []
-        unnecessary = []
       
         input = File.open(coverage_report_path).read
         input_lines = input.split("\n")
@@ -63,12 +62,12 @@ module Danger
         input_lines.each do |line|
           if line.start_with?('SF')
             files << line.sub('SF:', '')
-          elsif line.start_with?('LF')
-            uncovered_lines << line.sub('LF:', '').to_f
-          elsif line.start_with?('LH', '')
-            covered_lines << line.sub('LH:', '').to_f
           else
-            unnecessary << line
+            if line.start_with?('LF')
+              uncovered_lines << line.sub('LF:', '').to_f
+            elsif line.start_with?('LH', '')
+              covered_lines << line.sub('LH:', '').to_f
+            end
           end
         end
 
