@@ -71,10 +71,11 @@ module Danger
         table << "| File | Covered |\n"
         table << "| ---- | ------- |\n"
         
-        return files.each_with_index do | element, index |
-          coverage = lines_covered[index] / uncovered_lines[index] * 100
-          table << "| #{element} | #{coverage.round(2)}% |\n"
+        rows = files.each_with_index.map do | element, index |
+           return "| #{element} | #{(lines_covered[index] / uncovered_lines[index] * 100).round(2)}% |\n"
         end
+
+        return rows.reduce(table) { |acc, row| acc << row }
       end
       
     def code_coverage_message
