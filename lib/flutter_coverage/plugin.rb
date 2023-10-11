@@ -52,46 +52,30 @@ module Danger
       end
 
       def tests_context
-        files = []
-        covered_lines = []
-        uncovered_lines = []
-        unnecessary = []
-      
         input = File.open(coverage_report_path).read
         input_lines = input.split("\n")
 
-        input_lines.each do |line|
-          if line.start_with?('SF:')
-            files << line.sub('SF:', '')
-          else
-            if line.start_with?('LF:')
-              uncovered_lines << line.sub('LF:', '').to_f
-            elsif line.start_with?('LH:', '')
-              covered_lines << line.sub('LH:', '').to_f
-            else
-              unnecessary << line
-            end
-          end
+        files = input_lines.select do |line|
+          line.start_with?('SF:')
         end
 
-        asdf = input_lines.select do |line|
+        covered_lines = input_lines.select do |line|
           line.start_with?('LH:')
         end
 
-        fghj = input_lines.select do |line|
+        uncovered_lines = input_lines.select do |line|
           line.start_with?('LF:')
         end
-
-        return "#{asdf}\n#{asdf.length}\n#{fghj}\n#{fghj.length}"
-
-        # return "#{input_lines}\n files: #{files.length} | covered_lines: #{covered_lines.length} | uncovered_lines: #{uncovered_lines.length} | unnecessary: #{unnecessary.length}"
-        # table = "### Code coverage context: 👁️\n"
-        # table << "| File | Covered |\n"
-        # table << "| ---- | ------- |\n"
         
-        # files.each_with_index do | element, index |
-        #    table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
-        # end
+        table = "### Code coverage context: 👁️\n"
+        table << "| File | Covered |\n"
+        table << "| ---- | ------- |\n"
+        
+        files.each_with_index do | element, index |
+           table << "| #{element.sub('SF:', '')} | #{(covered_lines[index].sub('LH:', '').to_f / uncovered_lines[index].sub('LF:', '').to_f * 100).round(2)}% |\n"
+        end
+
+        return table
       end
       
     def code_coverage_message
