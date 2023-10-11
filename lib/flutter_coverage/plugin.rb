@@ -60,7 +60,8 @@ module Danger
     end
 
     def tests_context_message
-       markdown("## Code coverage context: 👁️ #{test_context}")
+        markdown("## Code coverage context: 👁️")
+        puts tests_context
     end
   end
 end
