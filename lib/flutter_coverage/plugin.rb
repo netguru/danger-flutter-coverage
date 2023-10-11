@@ -38,6 +38,7 @@ module Danger
       def code_coverage
         uncovered_lines = 0
         covered_lines = 0
+        emoji = ✅
 
         input = File.open(coverage_report_path).read
 
@@ -48,7 +49,17 @@ module Danger
                 covered_lines += line.sub('LH:', '').to_f
             end
         end
-        covered_lines / uncovered_lines * 100
+        coverage = covered_lines / uncovered_lines * 100
+        
+        if coverage < 70
+          emoji = 🤔
+        elsif coverage <= 85
+          emoji = 😀
+        else
+          emoji = 🎉
+        end
+
+        return "### Code coverage: #{code_coverage.round(2)}% #{emoji}"
       end
 
       def tests_context
@@ -79,7 +90,7 @@ module Danger
       end
       
     def code_coverage_message
-        markdown("### Code coverage: #{code_coverage.round(2)}% ✅")
+        markdown(code_coverage)
     end
 
     def tests_context_message
