@@ -51,7 +51,7 @@ module Danger
         covered_lines / uncovered_lines * 100
       end
 
-      def code_coverage_context
+      def tests_context
         File.open(coverage_report_path).read
       end
       
@@ -59,8 +59,8 @@ module Danger
         markdown("## Code coverage: #{code_coverage.round(2)}% ✅")
     end
 
-    def code_coverage_context_message
-       markdown("## Code coverage context: #{code_coverage_context} ✅")
+    def tests_context_message
+       markdown("## Code coverage context: #{tests_context} ✅")
     end
   end
 end
