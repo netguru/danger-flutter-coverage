@@ -38,7 +38,6 @@ module Danger
       def code_coverage
         uncovered_lines = 0
         covered_lines = 0
-        emoji = "✅"
 
         input = File.open(coverage_report_path).read
 
@@ -60,7 +59,7 @@ module Danger
           emoji = "🎉"
         end
 
-        return "### Code coverage: #{code_coverage.round(2)}% #{emoji}"
+        return "### Code coverage: #{coverage.round(2)}% #{emoji}"
       end
 
       def tests_context
