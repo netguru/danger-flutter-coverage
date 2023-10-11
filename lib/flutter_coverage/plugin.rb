@@ -59,7 +59,7 @@ module Danger
         input = File.open(coverage_report_path).read
         input_lines = input.split("\n")
 
-        input_lines.each_line do |line|
+        input_lines.each do |line|
           if line.start_with?('SF')
             files << line.sub('SF:', '')
           elsif line.start_with?('LF')
