@@ -57,6 +57,9 @@ module Danger
         uncovered_lines = []
       
         input = File.open(coverage_report_path).read
+        tests = input.split("end_of_record")
+
+        return "#{tests.length}"
 
         # input.each_line do |line|
         #   if line.start_with?('SF')
@@ -74,8 +77,6 @@ module Danger
         # covered_lines.each_with_index do | element, index |
         #    table << "| #{element} | #{(covered_lines[index] / uncovered_lines[index] * 100).round(2)}% |\n"
         # end
-
-        return input
       end
       
     def code_coverage_message
