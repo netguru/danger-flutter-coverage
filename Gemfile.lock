@@ -200,7 +200,7 @@ GEM
     uber (0.1.0)
     unicode-display_width (1.7.0)
     webrick (1.8.2)
-    yard (0.9.36)
+    yard (0.9.42)
 
 PLATFORMS
   ruby
