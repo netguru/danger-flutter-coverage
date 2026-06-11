@@ -48,11 +48,53 @@ module Danger
                 covered_lines += line.sub('LH:', '').to_f
             end
         end
-        covered_lines / uncovered_lines * 100
+        
+        coverage = covered_lines / uncovered_lines * 100
+        
+        if coverage < 70
+          emoji = "🤔"
+        elsif coverage <= 85
+          emoji = "😀"
+        else
+          emoji = "🎉"
+        end
+
+        return "### Code coverage: #{coverage.round(2)}% #{emoji}"
+      end
+
+      def tests_context
+        input = File.open(coverage_report_path).read
+        input_lines = input.split("\n")
+
+        files = input_lines.select do |line|
+          line.start_with?('SF:')
+        end
+
+        covered_lines = input_lines.select do |line|
+          line.start_with?('LH:')
+        end
+
+        uncovered_lines = input_lines.select do |line|
+          line.start_with?('LF:')
+        end
+        
+        table = "### Code coverage context: 👁️\n"
+        table << "| File | Covered |\n"
+        table << "| ---- | ------- |\n"
+        
+        files.each_with_index do | element, index |
+           table << "| #{element.sub('SF:', '')} | #{(covered_lines[index].sub('LH:', '').to_f / uncovered_lines[index].sub('LF:', '').to_f * 100).round(2)}% |\n"
+        end
+
+        return table
       end
       
     def code_coverage_message
-        markdown("## Code coverage: #{code_coverage.round(2)}% ✅")
+        markdown(code_coverage)
+    end
+
+    def tests_context_message
+        markdown(tests_context)
     end
   end
 end

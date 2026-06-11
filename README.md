@@ -17,6 +17,9 @@ flutter_coverage.coverage_report_path = "./coverage/lcov.info"
 
 # Print the code coverage message
 flutter_coverage.code_coverage_message
+
+# Print the lcov table
+flutter_coverage.tests_context_message
 ```
 
 ## Development
